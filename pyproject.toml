@@ -7,7 +7,7 @@ name = "alchemia"
 version = "0.1.0"
 description = "The Alchemical Forge — Material ingestion pipeline + aesthetic nervous system"
 requires-python = ">=3.11"
-license = {text = "MIT"}
+license = "MIT"
 authors = [{name = "4444j99"}]
 dependencies = [
     "pyyaml>=6.0",
@@ -15,6 +15,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
+    "build>=1.0",
     "pytest>=8.0",
     "ruff>=0.4",
 ]
@@ -40,6 +41,7 @@ ignore = [
     "PLR0912",
     "PLR0913",
     "PLR0915",
+    "PLR0917",
     "PLC0415",
     "PLR2004",
     "PLW1510",

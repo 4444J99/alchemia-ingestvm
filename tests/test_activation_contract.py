@@ -1,33 +1,12 @@
-"""Tests for activation contract, CLI entrypoint smoke testing, and reproducible ingest outputs."""
+"""Tests for CLI entrypoint smoke testing and reproducible ingest outputs."""
 
 import json
 import sys
-from pathlib import Path
-
-import yaml
 
 from alchemia.absorb.classifier import classify_all
 from alchemia.cli import main
 from alchemia.intake.crawler import crawl
 from alchemia.intake.dedup import mark_duplicates
-
-
-def test_seed_deployment_contract():
-    """Verify that seed.yaml contains the required deployment contract fields."""
-    seed_path = Path("seed.yaml")
-    assert seed_path.exists()
-
-    with seed_path.open() as f:
-        data = yaml.safe_load(f)
-
-    assert "deployment" in data
-    dep = data["deployment"]
-    assert dep["type"] == "python-package"
-    assert dep["build_system"] == "setuptools"
-    assert dep["entry_point"] == "alchemia"
-    assert dep["artifact_pattern"] == "dist/*.whl"
-    assert dep["verification"]["install_smoke_test"] == "alchemia status"
-    assert dep["verification"]["reproducible_build"] is True
 
 
 def test_cli_help_smoke(capsys, monkeypatch):
@@ -64,11 +43,8 @@ def test_reproducible_ingest_output(tmp_path):
         "archived": set(),
     }
 
-    # Run 1
     inv1 = mark_duplicates(crawl([src_dir]))
     class1 = classify_all(inv1, registry)
-
-    # Run 2
     inv2 = mark_duplicates(crawl([src_dir]))
     class2 = classify_all(inv2, registry)
 

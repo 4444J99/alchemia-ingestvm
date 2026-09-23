@@ -18,7 +18,6 @@ Alchemia is the ingestion engine that absorbs raw creative material — document
 - [Capture Channels](#capture-channels)
 - [Module Reference](#module-reference)
 - [CLI Usage](#cli-usage)
-- [Build & Verification](#build--verification)
 - [Data Directories](#data-directories)
 - [Configuration](#configuration)
 - [Development](#development)
@@ -265,46 +264,6 @@ alchemia gdocs-status                    # Check integration status
 
 # Status
 alchemia status                          # Pipeline data summary
-```
-
----
-
-## Build & Verification
-
-### Package Build & Install Smoke Test
-
-To build the release distribution and perform an installation smoke test:
-
-```bash
-# Build sdist and wheel packages
-python -m build
-
-# Install built wheel package
-pip install dist/*.whl --force-reinstall
-
-# Verify entrypoint execution
-alchemia --help
-alchemia status
-```
-
-### Reproducible Ingestion Verification
-
-Alchemia produces deterministic, reproducible ingestion outputs across runs:
-
-1. **Intake Stage:** Crawls files and computes SHA-256 digests (`data/intake-inventory.json`).
-2. **Absorb Stage:** Evaluates deterministic classification rules against inventory (`data/absorb-mapping.json`).
-3. **Synthesize Stage:** Resolves `taste.yaml` and organ aesthetic modifiers into per-organ creative briefs (`data/creative-briefs/`).
-
-To verify reproducible ingest output locally:
-
-```bash
-# Run intake and absorb steps to target custom output paths
-alchemia intake --output data/test-intake.json
-alchemia absorb --inventory data/test-intake.json --output data/test-absorb.json
-
-# Compare outputs across runs to ensure zero drift
-diff -u data/intake-inventory.json data/test-intake.json
-diff -u data/absorb-mapping.json data/test-absorb.json
 ```
 
 ---

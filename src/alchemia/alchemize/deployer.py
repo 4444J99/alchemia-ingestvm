@@ -64,7 +64,7 @@ def is_branch_protected(org: str, repo: str, branch: str) -> bool:
     return result is not None and isinstance(result, dict)
 
 
-def put_file(
+def put_file(  # noqa: PLR0917
     org: str,
     repo: str,
     path: str,
@@ -108,7 +108,7 @@ def put_file(
     return True
 
 
-def deploy_file(
+def deploy_file(  # noqa: PLR0917
     org: str,
     repo: str,
     target_path: str,

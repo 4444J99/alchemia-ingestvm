@@ -5,6 +5,7 @@
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue)](https://python.org)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Organ: Meta](https://img.shields.io/badge/organ-Meta-purple)](https://github.com/meta-organvm)
+[![CI](https://github.com/4444J99/alchemia-ingestvm/actions/workflows/ci.yml/badge.svg)](https://github.com/4444J99/alchemia-ingestvm/actions/workflows/ci.yml)
 
 Alchemia is the ingestion engine that absorbs raw creative material — documents, code prototypes, screenshots, bookmarks, notes — classifies each file to its target organ and repository, and deploys it with full provenance tracking. It also maintains the **aesthetic nervous system**: a cascading `taste.yaml` → organ-aesthetic → repository-aesthetic chain that enforces visual and tonal DNA across all AI-generated content in the system.
 
@@ -29,39 +30,39 @@ Alchemia is the ingestion engine that absorbs raw creative material — document
 Alchemia operates as a three-stage pipeline with a parallel aesthetic subsystem:
 
 ```
-                    ┌──────────────────────────────────────────┐
+                    ┌─────────────────────────────────────────┐
                     │           CAPTURE CHANNELS               │
                     │  Bookmarks · Apple Notes · Google Docs   │
                     │  AI Chat Transcripts · Screenshots       │
-                    └────────────────┬─────────────────────────┘
+                    └───────────────┬────────────────────────┘
                                      │
-                    ┌────────────────▼─────────────────────────┐
+                    ┌───────────────▼────────────────────────┐
                     │           STAGE 1: INTAKE                │
                     │  Crawl directories · SHA-256 fingerprint │
                     │  Detect duplicates · Enrich from manifest│
                     │  Output: intake-inventory.json           │
-                    └────────────────┬─────────────────────────┘
+                    └───────────────┬────────────────────────┘
                                      │
-                    ┌────────────────▼─────────────────────────┐
+                    ┌───────────────▼────────────────────────┐
                     │           STAGE 2: ABSORB                │
                     │  7-rule priority classification chain     │
                     │  Map files → organ/org/repo              │
                     │  Output: absorb-mapping.json             │
-                    └────────────────┬─────────────────────────┘
+                    └───────────────┬────────────────────────┘
                                      │
-                    ┌────────────────▼─────────────────────────┐
+                    ┌───────────────▼────────────────────────┐
                     │          STAGE 3: ALCHEMIZE              │
                     │  Transform (docx→md) · Deploy via GitHub │
                     │  Contents API · Batch deployment         │
                     │  Output: provenance-registry.json        │
-                    └──────────────────────────────────────────┘
+                    └────────────────────────────────────────┘
 
     AESTHETIC NERVOUS SYSTEM (parallel)
-    ┌──────────────────────────────────────────────────────────┐
+    ┌─────────────────────────────────────────────────────────┐
     │  taste.yaml ← organ-aesthetics/*.yaml ← repo overrides  │
     │  Cascading palette/tone/typography/anti-patterns          │
     │  Creative briefs per organ · AI prompt injection blocks   │
-    └──────────────────────────────────────────────────────────┘
+    └────────────────────────────────────────────────────────────┘
 ```
 
 The pipeline reads from `~/Workspace/` source directories, classifies every file to one of the eight organs and their specific repositories, and deploys via the GitHub Contents API. The aesthetic system runs in parallel, providing style guidance to any AI agent generating content across the system.

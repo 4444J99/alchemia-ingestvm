@@ -4,10 +4,20 @@ org: meta-organvm
 repo: alchemia-ingestvm
 
 metadata:
-  description: "Material ingestion pipeline and aesthetic nervous system"
+  description: "Aesthetic ingestion and provenance pipeline for Organ II"
   language: python
   implementation_status: ACTIVE
   promotion_status: CANDIDATE
+
+deployment:
+  type: python-package
+  build_system: setuptools
+  entry_point: alchemia
+  artifact_pattern: "dist/*.whl"
+  release_channel: github-releases
+  verification:
+    install_smoke_test: "alchemia status"
+    reproducible_build: true
 
 agents: []
 

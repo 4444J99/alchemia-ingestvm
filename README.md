@@ -30,27 +30,27 @@ Alchemia is the ingestion engine that absorbs raw creative material — document
 Alchemia operates as a three-stage pipeline with a parallel aesthetic subsystem:
 
 ```
-                    ┌─────────────────────────────────────────┐
+                    ┌────────────────────────────────────────┐
                     │           CAPTURE CHANNELS               │
                     │  Bookmarks · Apple Notes · Google Docs   │
                     │  AI Chat Transcripts · Screenshots       │
-                    └───────────────┬────────────────────────┘
+                    └──────────────┬───────────────────────┘
                                      │
-                    ┌───────────────▼────────────────────────┐
+                    ┌──────────────▼───────────────────────┐
                     │           STAGE 1: INTAKE                │
                     │  Crawl directories · SHA-256 fingerprint │
                     │  Detect duplicates · Enrich from manifest│
                     │  Output: intake-inventory.json           │
-                    └───────────────┬────────────────────────┘
+                    └──────────────┬───────────────────────┘
                                      │
-                    ┌───────────────▼────────────────────────┐
+                    ┌──────────────▼───────────────────────┐
                     │           STAGE 2: ABSORB                │
                     │  7-rule priority classification chain     │
                     │  Map files → organ/org/repo              │
                     │  Output: absorb-mapping.json             │
-                    └───────────────┬────────────────────────┘
+                    └──────────────┬───────────────────────┘
                                      │
-                    ┌───────────────▼────────────────────────┐
+                    ┌──────────────▼───────────────────────┐
                     │          STAGE 3: ALCHEMIZE              │
                     │  Transform (docx→md) · Deploy via GitHub │
                     │  Contents API · Batch deployment         │
@@ -62,7 +62,7 @@ Alchemia operates as a three-stage pipeline with a parallel aesthetic subsystem:
     │  taste.yaml ← organ-aesthetics/*.yaml ← repo overrides  │
     │  Cascading palette/tone/typography/anti-patterns          │
     │  Creative briefs per organ · AI prompt injection blocks   │
-    └────────────────────────────────────────────────────────────┘
+    └───────────────────────────────────────────────────────────────┘
 ```
 
 The pipeline reads from `~/Workspace/` source directories, classifies every file to one of the eight organs and their specific repositories, and deploys via the GitHub Contents API. The aesthetic system runs in parallel, providing style guidance to any AI agent generating content across the system.
@@ -301,6 +301,7 @@ data/
 - **Development**: pytest, ruff
 - **Optional**: google-api-python-client + google-auth-oauthlib (for Google Docs channel)
 - **External**: pandoc (for .docx → .md conversion), gh CLI (for GitHub API deployment)
+- **Lockfile**: `uv.lock` for reproducible installs (managed via Dependabot/uv)
 
 ### Registry Path
 
@@ -319,6 +320,9 @@ Default source directories for `alchemia intake` are configured in `cli.py` as `
 python -m venv .venv
 source .venv/bin/activate
 pip install -e ".[dev]"
+
+# Or with uv for lockfile reproducibility
+# uv sync
 
 # Run tests
 pytest

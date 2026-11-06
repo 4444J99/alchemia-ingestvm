@@ -50,17 +50,16 @@ def _walk_safari_tree(children: list, path: list, results: list):
 
         elif item_type == "WebBookmarkTypeLeaf":
             # Bookmark
-            if INSPIRATIONS_FOLDER in path:
-                url = item.get("URLString", "")
-                if url:
-                    results.append(
-                        {
-                            "source": "safari",
-                            "url": url,
-                            "title": title,
-                            "folder_path": "/".join(path),
-                        },
-                    )
+            url = item.get("URLString", "")
+            if INSPIRATIONS_FOLDER in path and url:
+                results.append(
+                    {
+                        "source": "safari",
+                        "url": url,
+                        "title": title,
+                        "folder_path": "/".join(path),
+                    },
+                )
 
 
 def parse_chrome_bookmarks() -> list[dict]:
@@ -96,17 +95,16 @@ def _walk_chrome_tree(node: dict, path: list, results: list):
             _walk_chrome_tree(child, new_path, results)
 
     elif node_type == "url":
-        if INSPIRATIONS_FOLDER in path:
-            url = node.get("url", "")
-            if url:
-                results.append(
-                    {
-                        "source": "chrome",
-                        "url": url,
-                        "title": name,
-                        "folder_path": "/".join(path),
-                    },
-                )
+        url = node.get("url", "")
+        if INSPIRATIONS_FOLDER in path and url:
+            results.append(
+                {
+                    "source": "chrome",
+                    "url": url,
+                    "title": name,
+                    "folder_path": "/".join(path),
+                },
+            )
 
 
 def sync_bookmarks() -> list[dict]:

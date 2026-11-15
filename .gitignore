@@ -11,3 +11,13 @@ data/intake-inventory.json
 data/absorb-mapping.json
 data/provenance-registry.json
 .serena/
+
+# Agent work records are kept in a private archive, not in public repos.
+.claude/plans/
+.claude/handoffs/
+.codex/plans/
+.codex/receipts/
+.gemini/plans/
+.gemini/handoffs/
+.conductor/
+.specstory/

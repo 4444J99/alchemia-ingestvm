@@ -93,7 +93,7 @@ def build_deployment_manifest(entries: list[dict], registry: dict | None = None)
     return dict(manifest)
 
 
-def deploy_repo_batch(
+def deploy_repo_batch(  # noqa: PLR0917
     org: str,
     repo: str,
     files: list[dict],

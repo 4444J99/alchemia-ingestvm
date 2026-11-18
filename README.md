@@ -22,6 +22,8 @@ Alchemia is the ingestion engine that absorbs raw creative material — document
 - [Data Directories](#data-directories)
 - [Configuration](#configuration)
 - [Development](#development)
+- [Install & Smoke Test](#install--smoke-test)
+- [Release](#release)
 
 ---
 
@@ -333,6 +335,46 @@ ruff format --check src/ tests/
 
 # Run specific test module
 pytest tests/test_absorb.py -v
+```
+
+---
+
+## Install & Smoke Test
+
+Install the built package and prove it runs — the same commands the
+release workflow runs as its smoke proof:
+
+```bash
+# Build the wheel and sdist
+python -m build
+
+# Install the built wheel into a clean venv and smoke-test it
+python -m venv .venv-smoke
+.venv-smoke/bin/pip install dist/*.whl
+.venv-smoke/bin/alchemia --help
+.venv-smoke/bin/alchemia status
+```
+
+`alchemia --help` prints the command list; `alchemia status` is the
+non-destructive smoke command — it reports the three pipeline data files
+(`intake-inventory.json`, `absorb-mapping.json`,
+`provenance-registry.json`) as `not found` on a clean install and exits 0.
+For development, install editable instead: `pip install -e ".[dev]"`.
+
+---
+
+## Release
+
+Releases are cut from `v*` tags. Tagging a version (the owner's call)
+runs `.github/workflows/release.yml`, which gates on the same lint, type
+check, and test steps as CI (Python 3.11/3.12), builds the wheel and
+sdist, smoke-tests the installed wheel in a clean venv, uploads the
+artifacts, and publishes them to the GitHub Release for the tag. No
+release is published to PyPI.
+
+```bash
+git tag v0.1.0
+git push origin v0.1.0
 ```
 
 ---

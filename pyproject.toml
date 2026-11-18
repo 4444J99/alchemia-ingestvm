@@ -17,6 +17,7 @@ dependencies = [
 dev = [
     "pytest>=8.0",
     "ruff>=0.4",
+    "build>=1.0",
 ]
 google = [
     "google-api-python-client>=2.100",

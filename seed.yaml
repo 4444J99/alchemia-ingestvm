@@ -9,6 +9,23 @@ metadata:
   implementation_status: ACTIVE
   promotion_status: CANDIDATE
 
+release:
+  workflow: .github/workflows/release.yml
+  tag_pattern: "v*"
+  install_command: "pip install -e ."
+  smoke_commands:
+    - "alchemia --help"
+    - "alchemia status"
+  artifacts:
+    - wheel
+    - sdist
+  promotion:
+    from: CANDIDATE
+    to: PRODUCTION
+    requires:
+      - tagged release published
+      - release workflow smoke test passes in CI
+
 agents: []
 
 produces:

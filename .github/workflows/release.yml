@@ -69,12 +69,12 @@ jobs:
           /tmp/alchemia-smoke-venv/bin/alchemia status
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: alchemia-dist
           path: dist/*
 
       - name: Publish GitHub Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: dist/*
